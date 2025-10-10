@@ -2,13 +2,15 @@ import { Outlet } from 'react-router';
 import { Footer, NavBar } from '../components';
 import { useEffect, useState } from 'react';
 
+import type { Destination } from '../types';
+
 export default function MainLayout() {
-  const [destinations, setDestinations] = useState(null);
+  const [destinations, setDestinations] = useState<Destination[]>();
 
   useEffect(() => {
     fetch('/travel.json')
       .then((res) => res.json())
-      .then((data) => setDestinations(data));
+      .then((data) => setDestinations(data as Destination[]));
   }, []);
 
   return (

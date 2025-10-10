@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router';
 import { About, Contact, Destinations, Home, NotFound, SingleDestination } from './pages';
-import MainLayout from './layouts/MainLayout.jsx';
+import MainLayout from './layouts/MainLayout.js';
 
 const App = () => {
   return (

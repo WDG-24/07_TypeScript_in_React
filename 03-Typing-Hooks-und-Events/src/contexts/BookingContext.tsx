@@ -1,13 +1,38 @@
 import { createContext, useContext, useReducer } from 'react';
 
-const BookingContext = createContext();
+export type BookingState = {
+  destinations: string[];
+  premium: boolean;
+};
+
+export type BookingContextType = {
+  bookingState: BookingState;
+  addDestination: (dest: string) => void;
+  removeDestination: (dest: string) => void;
+};
+
+type BookingAction =
+  | {
+      type: 'add_destination';
+      payload: string;
+    }
+  | {
+      type: 'remove_destination';
+      payload: string;
+    };
 
 const initialState = {
   destinations: [],
   premium: false,
 };
 
-function reducer(state, action) {
+const BookingContext = createContext<BookingContextType>({
+  bookingState: initialState,
+  addDestination: () => {},
+  removeDestination: () => {},
+});
+
+function reducer(state: BookingState, action: BookingAction) {
   console.log({ state, action });
   switch (action.type) {
     case 'add_destination': {
@@ -20,18 +45,18 @@ function reducer(state, action) {
       return { ...state, premium, destinations };
     }
     default:
-      throw new Error('Unknown action: ', action.type);
+      throw new Error(`Unknown action: ${JSON.stringify(action)}`);
   }
 }
 
-export default function BookingContextProvider({ children }) {
+export default function BookingContextProvider({ children }: { children: React.ReactNode }) {
   const [bookingState, bookingDispatch] = useReducer(reducer, initialState);
 
-  function addDestination(dest) {
+  function addDestination(dest: string) {
     bookingDispatch({ type: 'add_destination', payload: dest });
   }
 
-  function removeDestination(dest) {
+  function removeDestination(dest: string) {
     bookingDispatch({ type: 'remove_destination', payload: dest });
   }
 

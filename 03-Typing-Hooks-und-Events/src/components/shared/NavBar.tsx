@@ -1,9 +1,12 @@
-import { useState } from 'react';
+/** biome-ignore-all lint/correctness/useUniqueElementIds: <explanation> */
+import { useRef, useState } from 'react';
 import { NavLink } from 'react-router';
-import { useTheme } from '../../contexts/ThemeContext.jsx';
-import { useBooking } from '../../contexts/BookingContext.jsx';
+import { useTheme, type UsableThemes } from '../../contexts/ThemeContext.js';
+import { useBooking } from '../../contexts/BookingContext.js';
 
 const NavBar = () => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
   const { theme, changeTheme } = useTheme();
   const {
     bookingState: { premium },
@@ -12,11 +15,18 @@ const NavBar = () => {
 
   return (
     <div data-theme={theme} className='navbar bg-base-100 shadow-sm'>
+      <button onClick={() => dialogRef.current?.showModal()} type='button'>
+        Modal
+      </button>
+      <dialog ref={dialogRef} id='my-dialog' className='inset-1/2 bg-indigo-700 p-3 border-cyan-500'>
+        Hallo vom Dialog
+      </dialog>
+
       <div className='flex-1'>
         <a className='btn btn-ghost text-xl' href='/'>
           Travel Agency
         </a>
-        <select className='select' defaultValue={theme} onChange={(e) => changeTheme(e.target.value)}>
+        <select className='select' defaultValue={theme} onChange={(e) => changeTheme(e.target.value as UsableThemes)}>
           <option value='halloween'>Halloween</option>
           <option value='nord'>Nord</option>
           <option value='caramellatte'>Caramellatte</option>

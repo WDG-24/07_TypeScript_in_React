@@ -1,11 +1,12 @@
 import { DestinationCard } from '../components';
 import { useNavigate, useOutletContext } from 'react-router';
+import type { Destination } from '../types';
 
 const Home = () => {
-  const destinations = useOutletContext();
+  const destinations = useOutletContext<Destination[]>();
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate('/destinations');
   };
@@ -54,13 +55,7 @@ const Home = () => {
         <h2 className='text-3xl font-bold text-secondary text-center'>Popular Destinations</h2>
         <div className='grid md:grid-cols-3 gap-6'>
           {destinations?.slice(0, 3).map((destination) => (
-            <DestinationCard
-              key={destination.slug}
-              title={destination.title}
-              image={destination.image}
-              text={destination.description}
-              slug={destination.slug}
-            />
+            <DestinationCard key={destination.slug} {...destination} />
           ))}
         </div>
       </section>
