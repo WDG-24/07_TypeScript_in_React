@@ -1,11 +1,14 @@
 import { DestinationCard } from '../components';
 import { useNavigate, useOutletContext } from 'react-router';
+// Type-only Import
 import type { Destination } from '../types';
 
 const Home = () => {
+  // Generic <Destination[]> gibt an, welchen Type der OutletContext zurückgibt
   const destinations = useOutletContext<Destination[]>();
   const navigate = useNavigate();
 
+  // Event-Type für Form Submit: React.FormEvent<HTMLFormElement>
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate('/destinations');
@@ -54,6 +57,7 @@ const Home = () => {
       <section className='space-y-6 px-4'>
         <h2 className='text-3xl font-bold text-secondary text-center'>Popular Destinations</h2>
         <div className='grid md:grid-cols-3 gap-6'>
+          {/* ... Rest-Operator kann alle Properties des Destination-Objekts auf einmal übergeben */}
           {destinations?.slice(0, 3).map((destination) => (
             <DestinationCard key={destination.slug} {...destination} />
           ))}

@@ -1,19 +1,18 @@
 import { Link } from 'react-router';
 import { useTheme } from '../../contexts/ThemeContext.js';
 import { useBooking } from '../../contexts/BookingContext.js';
+// Type-only Import: nur der Type wird importiert
 import type { Destination } from '../../types/index.js';
 
+// Omit<Destination, 'id'> erstellt einen neuen Type: alle Properties von Destination außer 'id'
+// Props werden inline destrukturiert und typisiert
 const DestinationCard = ({ title, image, description, slug }: Omit<Destination, 'id'>) => {
   const { theme } = useTheme();
-  // const { bookingState, bookingDispatch } = useBooking();
   const { bookingState, addDestination, removeDestination } = useBooking();
-  // console.log('RENDERING: DESTINATION CARD');
-  // console.log({ bookingState, bookingDispatch });
 
   const isBooked = bookingState.destinations.includes(slug);
 
   function handleBooking() {
-    // bookingDispatch({ type: 'add_destination', payload: slug });
     if (isBooked) {
       removeDestination(slug);
     } else {
