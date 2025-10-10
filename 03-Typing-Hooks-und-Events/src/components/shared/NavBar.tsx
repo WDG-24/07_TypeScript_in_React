@@ -1,8 +1,8 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <explanation> */
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { NavLink } from 'react-router';
-import { useTheme, type UsableThemes } from '../../contexts/ThemeContext.js';
 import { useBooking } from '../../contexts/BookingContext.js';
+import { useTheme, type UsableThemes } from '../../contexts/ThemeContext.js';
 
 const NavBar = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
