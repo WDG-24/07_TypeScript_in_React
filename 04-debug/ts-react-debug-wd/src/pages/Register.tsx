@@ -3,10 +3,14 @@ import { useActionState, useEffect, useState, type ChangeEvent } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { useAuth } from '@/contexts';
 import { registerAction } from '@/actions';
+import type { RegisterActionType } from '@/types';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [actionData, submitAction, isPending] = useActionState(registerAction, {});
+  const [actionData, submitAction, isPending] = useActionState(
+    registerAction,
+    {} as RegisterActionType
+  );
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const { isAuthenticated } = useAuth();
 

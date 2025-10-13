@@ -1,3 +1,5 @@
+import type { EventResponse } from '@/types';
+
 const API_URL = import.meta.env.VITE_EVENTS_API_URL;
 
 export const getAllEvents = async (query = `?page=1&limit=10`) => {
@@ -11,5 +13,7 @@ export const getAllEvents = async (query = `?page=1&limit=10`) => {
   if (!res.ok) {
     throw new Error('Failed to fetch events');
   }
-  return await res.json();
+  const data = (await res.json()) as EventResponse;
+  console.log(data);
+  return data;
 };

@@ -1,8 +1,12 @@
+import type { CreateEventActionType } from '@/types';
 import z from 'zod/v4';
 
 const API_URL = import.meta.env.VITE_EVENTS_API_URL;
 
-export const createEventAction = async (_, formData) => {
+export const createEventAction = async (
+  _: CreateEventActionType,
+  formData: FormData | null
+): Promise<CreateEventActionType> => {
   try {
     if (formData === null) {
       return { success: true, message: 'Event cancelled' };
@@ -17,7 +21,7 @@ export const createEventAction = async (_, formData) => {
     const eventSchema = z.object({
       title: z.string().min(1, 'Title is required'),
       description: z.string().optional(),
-      date: z.string().refine((val) => !isNaN(Date.parse(val)), {
+      date: z.string().refine((val) => !Number.isNaN(Date.parse(val)), {
         message: 'Invalid date format'
       }),
       location: z.string().min(1, 'Location is required'),

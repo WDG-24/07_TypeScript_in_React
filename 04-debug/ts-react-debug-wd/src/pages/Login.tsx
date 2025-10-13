@@ -4,7 +4,9 @@ import { useAuth } from '@/contexts';
 import { loginAction } from '@/actions';
 
 const Login = () => {
-  const [actionData, submitAction, isPending] = useActionState(loginAction, {});
+  const [actionData, submitAction, isPending] = useActionState(loginAction, {
+    error: ''
+  });
   const [form, setForm] = useState({ email: '', password: '' });
   const { isAuthenticated, login } = useAuth();
 
