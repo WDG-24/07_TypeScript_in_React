@@ -14,20 +14,22 @@ export default function ProductList() {
 
         const d = await res.json();
 
+        // Statt das gesamte Array, wird hier das einzelne Produkt mit dem Schema verglichen
         const fetchedProducts = [];
-        const erroneuousProds = [];
+        const productErrors = [];
 
         for (const product of d.products) {
           const { data, error, success } = ProductSchema.safeParse(product);
           if (success) {
             fetchedProducts.push(data);
           } else {
-            erroneuousProds.push(z.prettifyError(error));
+            productErrors.push(z.prettifyError(error));
           }
         }
-
+        // Valide Produkte werden angezeigt
         setProducts(fetchedProducts);
-        setErrors(erroneuousProds);
+        // Mit fehlerhaften Produkten kann gesondert umgegangen werden
+        setErrors(productErrors);
       } catch (error) {
         if (error instanceof Error) {
           setErrors([error.message]);
