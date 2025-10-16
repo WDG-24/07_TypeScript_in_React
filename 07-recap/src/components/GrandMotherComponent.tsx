@@ -1,5 +1,5 @@
 import ParentComponent from './ParentComponent';
 
-export default function GrandMotherComponent({ isOn }: { isOn: boolean }) {
-  return <ParentComponent isOn={isOn} />;
+export default function GrandMotherComponent() {
+  return <ParentComponent />;
 }

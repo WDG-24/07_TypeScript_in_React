@@ -3,16 +3,18 @@ import './App.css';
 import LightBulb from './components/LightBulb';
 import Toggle from './components/Toggle';
 import GrandMotherComponent from './components/GrandMotherComponent';
+import LightContextProvider from './context/LightContext';
 
 function App() {
-  const [isOn, setIsOn] = useState(false);
   return (
     <>
       <h1>Recap</h1>
       <div className='flex'>
-        <LightBulb isOn={isOn} />
-        {/* <GrandMotherComponent isOn={isOn} /> */}
-        <Toggle label='click here' name='clicked' setIsOn={setIsOn} />
+        <LightContextProvider>
+          <LightBulb />
+          <GrandMotherComponent />
+          <Toggle label='click here' name='clicked' />
+        </LightContextProvider>
       </div>
     </>
   );
